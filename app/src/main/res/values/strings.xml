@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CarManager</string>
+    <string name="music_previous">&lt;&lt;</string>
+    <string name="music_next">&gt;&gt;</string>
+</resources>
