@@ -5,24 +5,37 @@
     android:layout_height="match_parent"
     tools:context="com.yang.eric.carmanager.MainActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <Button
-            android:id="@+id/btn_show"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="show"/>
-        <Button
-            android:id="@+id/btn_hide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hide"/>
-        <Button
-            android:id="@+id/btn_permission"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="request permission"/>
-    </LinearLayout>
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/btn_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="show"/>
+                <Button
+                    android:id="@+id/btn_hide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="hide"/>
+                <Button
+                    android:id="@+id/btn_permission"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="request permission"/>
+                <Button
+                    android:id="@+id/btn_txzicon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="hide txz"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

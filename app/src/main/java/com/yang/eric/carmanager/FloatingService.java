@@ -17,6 +17,7 @@ public class FloatingService extends Service {
     public static final String ACTION = "action";
     public static final String SHOW = "show";
     public static final String HIDE = "hide";
+    public static final String STOP = "stop";
     private BluetoothMusicView bluetoothMusicView;
 
     @Override
@@ -38,6 +39,9 @@ public class FloatingService extends Service {
                 bluetoothMusicView.show();
             } else if (HIDE.equals(action)) {
                 bluetoothMusicView.hide();
+            }
+            if (STOP.equals(action)) {
+                stopSelf();
             }
         }
         return super.onStartCommand(intent, flags, startId);

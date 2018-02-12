@@ -3,6 +3,7 @@
     package="com.yang.eric.carmanager">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -19,7 +20,27 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".BluetoothListenerActivity"
+            android:theme="@style/OnePixelActivity"/>
+
         <service android:name=".FloatingService"/>
+
+        <receiver android:name=".BootCompletedReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".BluetoothMusicReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="BT_MUSIC_STATUS" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

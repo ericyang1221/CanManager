@@ -11,9 +11,31 @@
         android:layout_margin="10dp"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/music_info_tv"
-            android:textSize="20dp"
-            android:text="hello - - hello"
+            android:id="@+id/music_title_tv"
+            android:textSize="24dp"
+            android:text="title"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/music_artist_tv"
+            android:textSize="22dp"
+            android:text="artist"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/music_albumn_tv"
+            android:textSize="22dp"
+            android:text="albumn"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/music_countdown_tv"
+            android:textSize="22dp"
+            android:text="countdown"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <LinearLayout
@@ -38,6 +60,17 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text="next"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <Button
+                android:id="@+id/music_listener"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="listen"/>
         </LinearLayout>
     </LinearLayout>
 
