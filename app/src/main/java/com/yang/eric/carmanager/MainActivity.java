@@ -2,17 +2,24 @@ package com.yang.eric.carmanager;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yang.eric.carmanager.tools.TXZConfigManager;
 
+import java.lang.reflect.Method;
+
 public class MainActivity extends AppCompatActivity {
     private final int OVERLAY_PERMISSION_REQ_CODE = 1234;
+    private TextView consoleTv;
+    private static Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
                 TXZConfigManager.getInstance().showFloatTool(0);
             }
         });
+        consoleTv = findViewById(R.id.console);
+        testCode();
     }
 
     private void requestPermission() {
@@ -60,27 +69,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_DOWN://按向下键
-                Toast.makeText(this, "KEYCODE_DPAD_DOWN", Toast.LENGTH_SHORT).show();
-                break;
-            case KeyEvent.KEYCODE_DPAD_UP:// 按向上键
-                Toast.makeText(this, "KEYCODE_DPAD_UP", Toast.LENGTH_SHORT).show();
-                break;
-            case KeyEvent.KEYCODE_DPAD_LEFT://按向左键
-                Toast.makeText(this, "KEYCODE_DPAD_LEFT", Toast.LENGTH_SHORT).show();
-                break;
-            case KeyEvent.KEYCODE_DPAD_RIGHT://按向右键
-                Toast.makeText(this, "KEYCODE_DPAD_RIGHT", Toast.LENGTH_SHORT).show();
-                break;
-            case KeyEvent.KEYCODE_DPAD_CENTER://按向右键
-                Toast.makeText(this, "KEYCODE_DPAD_CENTER", Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                break;
+    private void testCode(){
+        final StringBuffer sb = new StringBuffer();
+        try {
+            Class<?> clazz = Class.forName("com.txznet.sdk.TXZConfigManager.FloatToolType");
+            Object[] objs = clazz.getEnumConstants();
+            for (Object obj : objs) {
+                sb.append(obj.toString()).append("\n");
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        return super.onKeyDown(keyCode, event);
+        sb.append("-------------------------------------------\n");
+        try{
+            Class<?> clazz = Class.forName("com.txznet.sdk.TXZConfigManager");
+            Method[] methods = clazz.getMethods();
+            for (Method method : methods){
+                sb.append(method.toString()).append("\n");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        sb.append("-------------------------------------------\n");
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                consoleTv.setText(sb);
+            }
+        });
     }
 }

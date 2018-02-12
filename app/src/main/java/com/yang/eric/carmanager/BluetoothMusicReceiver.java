@@ -16,8 +16,7 @@ public class BluetoothMusicReceiver extends BroadcastReceiver {
             i.putExtra(FloatingService.ACTION, FloatingService.SHOW);
             context.startService(i);
         } else {
-            Intent i = new Intent(context, FloatingService.class);
-            context.stopService(i);
+
         }
     }
 }

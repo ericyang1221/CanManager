@@ -19,6 +19,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.yang.eric.carmanager.BluetoothListenerActivity;
+import com.yang.eric.carmanager.FloatingService;
 import com.yang.eric.carmanager.R;
 import com.yang.eric.carmanager.RsBluetoothManager;
 import com.yang.eric.carmanager.tools.FloatingManager;
@@ -40,6 +41,7 @@ public class BluetoothMusicView extends FrameLayout {
     private Button playBtn;
     private Handler handler = new Handler(Looper.getMainLooper());
     private float mRawX,mRawY,mStartX,mStartY;
+    private boolean isStop = false;
 
     public BluetoothMusicView(Context context) {
         super(context);
@@ -70,6 +72,16 @@ public class BluetoothMusicView extends FrameLayout {
                 Intent i = new Intent(mContext, BluetoothListenerActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(i);
+            }
+        });
+        mView.findViewById(R.id.music_close).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(mContext, FloatingService.class);
+                i.putExtra(FloatingService.ACTION, FloatingService.HIDE);
+                mContext.startService(i);
+                mContext.stopService(i);
+                isStop = true;
             }
         });
         playBtn = mView.findViewById(R.id.music_play);
@@ -121,7 +133,7 @@ public class BluetoothMusicView extends FrameLayout {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (Boolean.TRUE){
+                while (!isStop){
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
