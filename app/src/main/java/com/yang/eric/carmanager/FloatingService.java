@@ -1,11 +1,8 @@
 package com.yang.eric.carmanager;
 
-import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
-import android.os.Build;
 import android.os.IBinder;
-import android.provider.Settings;
 
 import com.yang.eric.carmanager.views.BluetoothMusicView;
 
@@ -18,6 +15,7 @@ public class FloatingService extends Service {
     public static final String SHOW = "show";
     public static final String HIDE = "hide";
     public static final String STOP = "stop";
+    public static final String REFRESH = "refresh";
     private BluetoothMusicView bluetoothMusicView;
 
     @Override
@@ -39,6 +37,8 @@ public class FloatingService extends Service {
                 bluetoothMusicView.show();
             } else if (HIDE.equals(action)) {
                 bluetoothMusicView.hide();
+            } else if (REFRESH.equals(action)){
+
             }
             if (STOP.equals(action)) {
                 stopSelf();

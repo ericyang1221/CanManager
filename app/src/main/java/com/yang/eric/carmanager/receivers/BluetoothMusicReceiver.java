@@ -1,8 +1,10 @@
-package com.yang.eric.carmanager;
+package com.yang.eric.carmanager.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import com.yang.eric.carmanager.FloatingService;
 
 /**
  * Created by erichyang on 2018/2/12.

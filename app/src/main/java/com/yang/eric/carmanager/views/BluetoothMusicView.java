@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.SparseLongArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -21,7 +20,7 @@ import android.widget.TextView;
 import com.yang.eric.carmanager.BluetoothListenerActivity;
 import com.yang.eric.carmanager.FloatingService;
 import com.yang.eric.carmanager.R;
-import com.yang.eric.carmanager.RsBluetoothManager;
+import com.yang.eric.carmanager.tools.RsBluetoothManager;
 import com.yang.eric.carmanager.tools.FloatingManager;
 
 /**
@@ -130,50 +129,41 @@ public class BluetoothMusicView extends FrameLayout {
                 return true;
             }
         });
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (!isStop){
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    final String musicInfo = RsBluetoothManager.getSingleton().getMusicInfo();
-                    Log.d(TAG, "musicInfo: "+musicInfo);
-                    if (!TextUtils.isEmpty(musicInfo)){
-                        String[] strs = musicInfo.split(RsBluetoothManager.FF_SPLIT);
-                        if (strs != null && strs.length >= 4){
-                            final String title = strs[0];
-                            final String artist = strs[1];
-                            final String albumn = strs[2];
-                            int time = 0;
-                            try {
-                                time = Integer.valueOf(strs[3]);
-                            }catch (Exception e){}
-                            final int countdown = time;
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (musicTitleTv != null){
-                                        musicTitleTv.setText(title);
-                                    }
-                                    if (musicArtistTv != null){
-                                        musicArtistTv.setText(artist);
-                                    }
-                                    if (musicAlbumnTv != null){
-                                        musicAlbumnTv.setText(albumn);
-                                    }
-                                    if (musicCountdownTv != null){
-                                        musicCountdownTv.setText(String.valueOf(countdown));
-                                    }
-                                }
-                            });
+    }
+
+    public void refreshMusicInfo(){
+        final String musicInfo = RsBluetoothManager.getSingleton().getMusicInfo();
+        Log.d(TAG, "musicInfo: "+musicInfo);
+        if (!TextUtils.isEmpty(musicInfo)){
+            String[] strs = musicInfo.split(RsBluetoothManager.FF_SPLIT);
+            if (strs != null && strs.length >= 4){
+                final String title = strs[0];
+                final String artist = strs[1];
+                final String albumn = strs[2];
+                int time = 0;
+                try {
+                    time = Integer.valueOf(strs[3]);
+                }catch (Exception e){}
+                final int countdown = time;
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (musicTitleTv != null){
+                            musicTitleTv.setText(title);
+                        }
+                        if (musicArtistTv != null){
+                            musicArtistTv.setText(artist);
+                        }
+                        if (musicAlbumnTv != null){
+                            musicAlbumnTv.setText(albumn);
+                        }
+                        if (musicCountdownTv != null){
+                            musicCountdownTv.setText(String.valueOf(countdown));
                         }
                     }
-                }
+                });
             }
-        }).start();
+        }
     }
 
     public void show() {
@@ -196,6 +186,7 @@ public class BluetoothMusicView extends FrameLayout {
         mParams.width = LayoutParams.WRAP_CONTENT;
         mParams.height = LayoutParams.WRAP_CONTENT;
         mWindowManager.addView(mView, mParams);
+        refreshMusicInfo();
     }
 
     public void hide() {

@@ -71,25 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void testCode(){
         final StringBuffer sb = new StringBuffer();
-        try {
-            Class<?> clazz = Class.forName("com.txznet.sdk.TXZConfigManager.FloatToolType");
-            Object[] objs = clazz.getEnumConstants();
-            for (Object obj : objs) {
-                sb.append(obj.toString()).append("\n");
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+
         sb.append("-------------------------------------------\n");
-        try{
-            Class<?> clazz = Class.forName("com.txznet.sdk.TXZConfigManager");
-            Method[] methods = clazz.getMethods();
-            for (Method method : methods){
-                sb.append(method.toString()).append("\n");
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+
         sb.append("-------------------------------------------\n");
         handler.post(new Runnable() {
             @Override
@@ -97,5 +81,16 @@ public class MainActivity extends AppCompatActivity {
                 consoleTv.setText(sb);
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(final int keyCode, final KeyEvent event) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                consoleTv.setText(event.toString()+keyCode);
+            }
+        });
+        return super.onKeyDown(keyCode, event);
     }
 }

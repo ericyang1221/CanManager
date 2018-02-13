@@ -1,4 +1,4 @@
-package com.yang.eric.carmanager;
+package com.yang.eric.carmanager.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
