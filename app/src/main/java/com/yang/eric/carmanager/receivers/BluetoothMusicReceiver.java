@@ -13,12 +13,16 @@ import com.yang.eric.carmanager.FloatingService;
 public class BluetoothMusicReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getStringExtra("status").equalsIgnoreCase("play")) {
+        if(intent.getAction().equals("com.rs.bluetooth.ACTION_BTMUSIC_STATE_CHANGE")) {
             Intent i = new Intent(context, FloatingService.class);
-            i.putExtra(FloatingService.ACTION, FloatingService.SHOW);
+            i.putExtra(FloatingService.ACTION, FloatingService.REFRESH);
             context.startService(i);
-        } else {
-
+        }else if(intent.getAction().equals("BT_MUSIC_STATUS")){
+            if (intent.getStringExtra("status").equalsIgnoreCase("play")) {
+                Intent i = new Intent(context, FloatingService.class);
+                i.putExtra(FloatingService.ACTION, FloatingService.SHOW);
+                context.startService(i);
+            }
         }
     }
 }

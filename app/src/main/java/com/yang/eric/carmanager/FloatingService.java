@@ -38,7 +38,7 @@ public class FloatingService extends Service {
             } else if (HIDE.equals(action)) {
                 bluetoothMusicView.hide();
             } else if (REFRESH.equals(action)){
-
+                bluetoothMusicView.refreshMusicInfo();
             }
             if (STOP.equals(action)) {
                 stopSelf();
